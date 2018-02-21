@@ -1,0 +1,68 @@
+<div class="col-item col-item-m-freshdesk">
+            <div class="col-item-m-freshdesk--title">
+                <span class="col-item-m-freshdesk--title-text">Your Company Ticket Summary</span>
+            </div>
+            @* TODO for Back-end developer:
+                Please replace all the following placeholder count values from the Freshdesk API.
+                 - Count for unresolved items
+                 - Count for each of the summary items
+            *@
+            @*Unresolved Tickets*@
+            <div class="col-item-m-freshdesk--unresolved">
+                <div class="col-item-m-freshdesk--unresolved-count">
+                    <span class="col-item-m-freshdesk--unresolved-count-text">@ViewBag.TicketsUnresolvedCount</span>
+                </div>
+                <div class="col-item-m-freshdesk--unresolved-desc">
+                    <div class="col-item-m-freshdesk--unresolved-desc-text">Unresolved</div>
+                </div>
+            </div>
+            @*Summary Items*@
+            <ul class="col-item-m-freshdesk--summary">
+                <li class="col-item-m-freshdesk--summary-overdue">
+                    <div class="col-item-m-freshdesk--summary-count col-item-m-freshdesk--summary-count-m-overdue">@ViewBag.TicketsOverDueCount</div>
+                    <div class="col-item-m-freshdesk--summary-desc col-item-m-freshdesk--summary-desc-m-overdue">Overdue</div>
+                </li>
+                <li class="col-item-m-freshdesk--summary-open">
+                    <div class="col-item-m-freshdesk--summary-count col-item-m-freshdesk--summary-count-m-open">@ViewBag.OpenTicketCount</div>
+                    <div class="col-item-m-freshdesk--summary-desc col-item-m-freshdesk--summary-desc-m-desc">Open</div>
+                </li>
+                <li class="col-item-m-freshdesk--summary-due">
+                    <div class="col-item-m-freshdesk--summary-count col-item-m-freshdesk--summary-count-m-due">@ViewBag.TicketsDueTodayCount</div>
+                    <div class="col-item-m-freshdesk--summary-desc col-item-m-freshdesk--summary-desc-m-due">Due Today</div>
+                </li>
+                <li class="col-item-m-freshdesk--summary-onhold">
+                    <div class="col-item-m-freshdesk--summary-count col-item-m-freshdesk--summary-count-m-onhold">@ViewBag.OnHoldTicketsCount</div>
+                    <div class="col-item-m-freshdesk--summary-desc col-item-m-freshdesk--summary-desc-m-onhold">On Hold</div>
+                </li>
+                <li class="col-item-m-freshdesk--summary-unassigned">
+                    <div class="col-item-m-freshdesk--summary-count col-item-m-freshdesk--summary-count-m-unassigned">@ViewBag.TicketsUnassignedCount</div>
+                    <div class="col-item-m-freshdesk--summary-desc col-item-m-freshdesk--summary-desc-m-unassigned">Unassigned</div>
+                </li>
+            </ul>
+            @* TODO for Back-end developer:
+                1. Please replace the following placeholder content from the Freshdesk API for open tickets.
+                  - Agent avatar
+                  - Requestor Company name
+                  - Ticket title
+                  - Ticket due date
+                2. Only output the most recent 2 open items.
+            *@
+            @*Open Tickets*@
+            <ul class="col-item-m-freshdesk--open">
+                @foreach (var openTicket in Model.FreshdeskTickets)
+                {
+                    <li class="col-item-m-freshdesk--open-item">
+                        <div class="col-item-m-freshdesk--open-item-agent">
+                            <img src="https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/17000220955/medium/johan-medium.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJ2JSYZ7O3I4JO6DA%2F20170914%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20170914T050118Z&X-Amz-Expires=604800&X-Amz-Signature=4968b82e484eec7db23b69c9d6cf4e1aa7a98a2a6d0881c71428225dc347ee77&X-Amz-SignedHeaders=Host" alt="Placeholder Agent - @openTicket.AgentName" />
+                        </div>
+                        <div class="col-item-m-freshdesk--open-item-wrapper">
+                            <div class="col-item-m-freshdesk--open-item-company">@openTicket.RequesterName</div>
+                            <div class="col-item-m-freshdesk--open-item-title">@openTicket.Subject</div>
+                        </div>
+                        <div class="col-item-m-freshdesk--open-item-due-date">
+                            <div class="col-item-m-freshdesk--open-item-due-date-text">Due @openTicket.DueBy</div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
